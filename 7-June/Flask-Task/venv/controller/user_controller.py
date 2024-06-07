@@ -21,3 +21,8 @@ def user_update_controller():
 @app.route("/user/delete/<id>",methods=["DELETE"])
 def user_delete_controller(id):
     return obj.user_delete_model(id)
+
+@app.route("/user/patch/<id>",methods=["PATCH"])
+def user_patch_controller(id):
+    data=request.args.to_dict()
+    return obj.user_patch_model(data,id)

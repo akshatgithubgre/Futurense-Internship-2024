@@ -5,7 +5,7 @@ class user_model():
     def __init__(self):
         # Connections estabilishment code
         try:
-            self.con=mysql.connector.connect(host="localhost",username="root",password="passworc",database="flask_tutorial")
+            self.con=mysql.connector.connect(host="localhost",username="root",password="passwrod",database="flask_tutorial")
             self.con.autocommit=True
             self.cur=self.con.cursor(dictionary=True)
             print("Connection successfull")
@@ -36,9 +36,9 @@ class user_model():
     
 
     def user_update_model(self,data):
-        self.cur.execute(f"UPDATE users SET name='{data['name']}',email='{data['email']}',phone='{data['phone']}',role='{data['role']}',password='{data['password']}' WHERE id= {data['id']}")
+        self.cur.execute(f"UPDATE users SET name='{data['name']}',email='{data['email']}',phone='{data['phone']}',role='{data['role']}',password='{data['password']}' WHERE id={data['id']}")
         if self.cur.rowcount>0:
-            return make_respone({"message":"User Updated Successfully"},201)
+            return make_response({"message":"User Updated Successfully"},201)
         else:
             return make_response({"message":"Nothing to Update"},202)
         
@@ -48,3 +48,17 @@ class user_model():
             return make_response({"message":"User Deleted Successfully"},200)
         else:
             return make_response({"message":"Nothing to Delete"},202)
+        
+    def user_patch_model(self,data,id):
+        #UPDATE users SET ,col=val,col=val WHERE id={id}, we have to change the part between SET and WHERE
+        qry="UPDATE users SET "
+        k=""
+        for key in data:
+            k+=f"{key}='{data[key]}',"
+        qry+=k[:-1]+f" WHERE id={id}"
+        # return qry
+        self.cur.execute(qry)
+        if self.cur.rowcount>0:
+            return make_response({"message":"User Updated Successfully"},201)
+        else:
+            return make_response({"message":"Nothing to Update"},202)
