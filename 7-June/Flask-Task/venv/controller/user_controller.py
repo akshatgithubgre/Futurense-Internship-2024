@@ -1,6 +1,6 @@
 from app import app
 from model.user_model import user_model#first model.usermodel refer to file name and import user_model refers to class name
-from flask import request
+from flask import request,send_file
 from datetime import datetime
 obj=user_model()
 @app.route("/user/getall")
@@ -42,3 +42,7 @@ def user_upload_avatar_controller(uid):
     finalFilePath=f"uploads/{uniqueFileName}.{ext}"
     file.save(finalFilePath)
     return obj.user_upload_avatar_model(uid,finalFilePath)
+
+@app.route("/uploads/<filename>")
+def user_getavatar_controller(filename):
+    return send_file(f"uploads/{filename}")
