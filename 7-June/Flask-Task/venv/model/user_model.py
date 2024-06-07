@@ -16,9 +16,10 @@ class user_model():
         self.cur.execute("SELECT * FROM users")
         result=self.cur.fetchall()
         if(len(result)>0):
-            return json.dumps(result)
+            # return json.dumps(result)#dumps function turn to convert that serialized object(result) to string format but we have to generate a better readable format
+            return {"payload":result}#this will return json data as postman api tool will beautify it whereas for dumps postamn will not beautify it
         else:
-            return "No Data found"
+            return {"message":"No Data found"}
         
 
     def user_addone_model(self,data):
@@ -26,19 +27,19 @@ class user_model():
         # print(data)
         self.cur.execute(f"INSERT INTO users(name,email,phone,role,password) VALUES ('{data['name']}','{data['email']}','{data['phone']}','{data['role']}','{data['password']}')")
         # print(data['email'])
-        return "User created Successfully"
+        return {"message":"User Created Successfully"}
     
 
     def user_update_model(self,data):
         self.cur.execute(f"UPDATE users SET name='{data['name']}',email='{data['email']}',phone='{data['phone']}',role='{data['role']}',password='{data['password']}' WHERE id= {data['id']}")
         if self.cur.rowcount>0:
-            return "User updated succesfully"
+            return {"message":"User Updated Successfully"}
         else:
-            return "Nothing to update"
+            return {"message":"Nothing to Update"}
         
     def user_delete_model(self,id):
         self.cur.execute(f"DELETE FROM users WHERE id= {id}")
         if self.cur.rowcount>0:
-            return "User deleted succesfully"
+            return {"message":"User Deleted Successfully"}
         else:
-            return "Nothing to Delete"
+            return {"message":"Nothing to Delete"}
