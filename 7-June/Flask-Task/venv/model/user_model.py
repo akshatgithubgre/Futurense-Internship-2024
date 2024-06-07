@@ -5,7 +5,7 @@ class user_model():
     def __init__(self):
         # Connections estabilishment code
         try:
-            self.con=mysql.connector.connect(host="localhost",username="root",password="password",database="flask_tutorial")
+            self.con=mysql.connector.connect(host="localhost",username="root",password="passworc",database="flask_tutorial")
             self.con.autocommit=True
             self.cur=self.con.cursor(dictionary=True)
             print("Connection successfull")
@@ -18,7 +18,11 @@ class user_model():
         result=self.cur.fetchall()
         if(len(result)>0):
             # return json.dumps(result)#dumps function turn to convert that serialized object(result) to string format but we have to generate a better readable format
-            return make_response({"payload":result},200)#this will return json data as postman api tool will beautify it whereas for dumps postamn will not beautify it
+            
+            res=make_response({"payload":result},200)
+            res.headers['Access-Control-Allow-Origin']="*"# this header is necessary to be present here , postman never blocks a request as it is a developer tool but browsers like firefox, chrome they block if they dont get access control allow origin
+            return res
+            # return make_response({"payload":result},200)#this will return json data as postman api tool will beautify it whereas for dumps postamn will not beautify it
         else:
             return make_response({"message":"No Data found"},204)#204 doesnt need a body
         
