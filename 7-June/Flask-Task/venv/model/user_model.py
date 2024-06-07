@@ -4,7 +4,7 @@ class user_model():
     def __init__(self):
         # Connections estabilishment code
         try:
-            self.con=mysql.connector.connect(host="localhost",username="root",password="fill_the_password",database="flask_tutorial")
+            self.con=mysql.connector.connect(host="localhost",username="root",password="password",database="flask_tutorial")
             self.con.autocommit=True
             self.cur=self.con.cursor(dictionary=True)
             print("Connection successfull")
@@ -26,4 +26,9 @@ class user_model():
         # print(data)
         self.cur.execute(f"INSERT INTO users(name,email,phone,role,password) VALUES ('{data['name']}','{data['email']}','{data['phone']}','{data['role']}','{data['password']}')")
         # print(data['email'])
+        return "User created Successfully"
+    
+
+    def user_update_model(self,data):
+        self.cur.execute(f"INSERT INTO users(name,email,phone,role,password) VALUES ('{data['name']}','{data['email']}','{data['phone']}','{data['role']}','{data['password']}')")
         return "User created Successfully"
