@@ -62,3 +62,20 @@ class user_model():
             return make_response({"message":"User Updated Successfully"},201)
         else:
             return make_response({"message":"Nothing to Update"},202)
+        
+    def user_pagination_model(self,limit,page):
+        limit=int(limit)
+        page=int(page)
+        start=(page*limit)-limit
+        qry=f"SELECT * FROM users LIMIT {start},{limit}"
+        self.cur.execute(qry)
+        result=self.cur.fetchall()
+        if(len(result)>0):
+            # return json.dumps(result)#dumps function turn to convert that serialized object(result) to string format but we have to generate a better readable format
+            
+            res=make_response({"payload":result,"page_no":page,"limit":limit},200)
+            return res
+            # return make_response({"payload":result},200)#this will return json data as postman api tool will beautify it whereas for dumps postamn will not beautify it
+        else:
+            return make_response({"message":"No Data found"},204)#204 doesnt need a body
+        
