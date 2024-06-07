@@ -4,7 +4,7 @@ class user_model():
     def __init__(self):
         # Connections estabilishment code
         try:
-            self.con=mysql.connector.connect(host="localhost",username="root",password="greninja",database="flask_tutorial")
+            self.con=mysql.connector.connect(host="localhost",username="root",password="password",database="flask_tutorial")
             self.con.autocommit=True
             self.cur=self.con.cursor(dictionary=True)
             print("Connection successfull")
@@ -36,9 +36,9 @@ class user_model():
         else:
             return "Nothing to update"
         
-    def user_delete_model(self,data):
-        self.cur.execute(f"UPDATE users SET name='{data['name']}',email='{data['email']}',phone='{data['phone']}',role='{data['role']}',password='{data['password']}' WHERE id= {data['id']}")
+    def user_delete_model(self,id):
+        self.cur.execute(f"DELETE FROM users WHERE id= {id}")
         if self.cur.rowcount>0:
-            return "User updated succesfully"
+            return "User deleted succesfully"
         else:
-            return "Nothing to update"
+            return "Nothing to Delete"
