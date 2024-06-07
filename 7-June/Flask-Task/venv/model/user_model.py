@@ -78,4 +78,10 @@ class user_model():
             # return make_response({"payload":result},200)#this will return json data as postman api tool will beautify it whereas for dumps postamn will not beautify it
         else:
             return make_response({"message":"No Data found"},204)#204 doesnt need a body
-        
+    
+    def user_upload_avatar_model(self,uid,filepath):
+        self.cur.execute(f"UPDATE users SET avatar='{filepath}' WHERE id={uid}")
+        if self.cur.rowcount>0:
+            return make_response({"message":"File Successfully"},201)
+        else:
+            return make_response({"message":"Nothing to Update"},202)
