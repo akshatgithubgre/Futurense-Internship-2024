@@ -18,6 +18,10 @@ def user_getall_controller():
 def user_addone_controller():
     return obj.user_addone_model(request.form)
 
+@app.route("/user/addmultiple",methods=["POST"])
+def user_add_multiple_controller():
+    # print(request.json)#we are sending multiple data in json format not raw data
+    return obj.user_add_multiple_model(request.json)
 
 @app.route("/user/update",methods=["PUT"])
 def user_update_controller():
