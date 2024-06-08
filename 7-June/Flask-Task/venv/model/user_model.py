@@ -10,7 +10,7 @@ class user_model():
             self.con=mysql.connector.connect(host="localhost",username="root",password="",database="flask_tutorial")
             self.con.autocommit=True
             self.cur=self.con.cursor(dictionary=True)
-            print("Connection successfull")
+            print("Connection successfull in user_model")
         except:
             print("Some error")
     def user_getall_model(self):
