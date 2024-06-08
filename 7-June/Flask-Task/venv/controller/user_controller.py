@@ -6,7 +6,7 @@ from datetime import datetime
 obj=user_model()
 auth=auth_model()
 @app.route("/user/getall")
-@auth.token_auth("/user/getall")
+@auth.token_auth()
 def user_getall_controller():
     return obj.user_getall_model()
 
@@ -14,6 +14,7 @@ def user_getall_controller():
 
 
 @app.route("/user/addone",methods=["POST"])
+@auth.token_auth()
 def user_addone_controller():
     return obj.user_addone_model(request.form)
 
