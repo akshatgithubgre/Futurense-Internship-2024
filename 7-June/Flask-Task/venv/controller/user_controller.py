@@ -46,3 +46,9 @@ def user_upload_avatar_controller(uid):
 @app.route("/uploads/<filename>")
 def user_getavatar_controller(filename):
     return send_file(f"uploads/{filename}")
+
+
+@app.route('/user/login',methods=["POST"])
+def user_login_controller():
+    # request.form()
+    return obj.user_login_model(request.form)

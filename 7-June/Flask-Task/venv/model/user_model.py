@@ -1,11 +1,13 @@
 import json
 import mysql.connector
 from flask import make_response
+from datetime import datetime,timedelta
+import jwt
 class user_model():
     def __init__(self):
         # Connections estabilishment code
         try:
-            self.con=mysql.connector.connect(host="localhost",username="root",password="passwrod",database="flask_tutorial")
+            self.con=mysql.connector.connect(host="localhost",username="root",password="",database="flask_tutorial")
             self.con.autocommit=True
             self.cur=self.con.cursor(dictionary=True)
             print("Connection successfull")
@@ -86,4 +88,15 @@ class user_model():
         else:
             return make_response({"message":"Nothing to Update"},202)
         
-    
+    def user_login_model(self,data):
+        self.cur.execute(f"SELECT id,name,email,phone,avatar,role_id FROM users WHERE email='{data['email']}' and password='{data['password']}'")
+        result=self.cur.fetchall()
+        userdata=result[0]
+        exp_time=datetime.now()+timedelta(minutes=15)
+        exp_epoch_time=int(exp_time.timestamp())
+        payload={
+            "payload":userdata,
+            "exp":exp_epoch_time
+        }
+        jwttoken=jwt.encode(payload,"sagar",algorithm="HS256")#sgaar is encryption key
+        return make_response({"token":jwttoken},200)
