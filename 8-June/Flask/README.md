@@ -30,7 +30,7 @@ To run any of the projects, follow these steps:
 
 2. Navigate to the desired project directory:
     ```bash
-    cd Futurense-Internship-2024/7-June/Flask-Task
+    cd Futurense-Internship-2024/8-June/Flask
     ```
 
 3. Run the virtual environment:
