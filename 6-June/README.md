@@ -1,6 +1,6 @@
 # Python-Practice-AIDE-6-June
 
-# AIDE-6-6-2024
+# 6 June Task
 
 Completed Individual task of Python and Github:
 in Python completed tasks:
